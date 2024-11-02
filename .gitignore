@@ -1,0 +1,41 @@
+# Rust related
+/target/
+/*.rs.bk
+
+# Tauri build artifacts
+/src-tauri/target/
+/src-tauri/pkg/
+/src-tauri/tauri-build.log
+
+# Tauri settings file (optional, add if you don’t want local config in repo)
+/src-tauri/tauri.conf.json
+
+# Node modules and frontend build artifacts
+/node_modules/
+/dist/
+/dist-ssr/
+/yarn.lock
+/package-lock.json
+/npm-debug.log*
+/yarn-debug.log*
+/yarn-error.log*
+/pnpm-debug.log*
+/lerna-debug.log*
+
+# Logs
+logs
+*.log
+
+# Local environment files
+*.local
+
+# Editor directories and files
+.vscode/
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
