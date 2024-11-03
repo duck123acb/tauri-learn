@@ -30,9 +30,8 @@ button:hover {
   background-color: white;
 }
 
-.reminders-container {
-  display: flex;
-  flex-direction: column;
+.hidden {
+  display: none !important;
 }
 
 .reminder-container {
@@ -41,6 +40,11 @@ button:hover {
 }
 .item {
   margin-left: 1em;
+}
+
+#reminders-container {
+  display: flex;
+  flex-direction: column;
 }
 
 #new-input {

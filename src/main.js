@@ -1,18 +1,30 @@
 const { invoke } = window.__TAURI__.core;
 
-let greetInputEl;
-let greetMsgEl;
+let remindersContainerEl;
+let reminderElInstance;
+let newInput;
 
-async function greet() {
-  // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-  greetMsgEl.textContent = await invoke("greet", { name: greetInputEl.value });
+async function addItem(msg) {
+  if (msg.trim() === "") {
+    return;
+  }
+  console.log(msg);
+  // greetMsgEl.textContent = await invoke("greet", { name: greetInputEl.value });
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  greetInputEl = document.querySelector("#greet-input");
-  greetMsgEl = document.querySelector("#greet-msg");
-  document.querySelector("#greet-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    greet();
+  remindersContainerEl = document.querySelector("#reminders-container");
+  reminderElInstance = document.querySelector(".reminder-container").cloneNode(true);
+  reminderElInstance.classList.remove("hidden");
+  newInput = document.querySelector("#new-input");
+  newInput.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") {
+      return;
+    }
+
+    addItem(newInput.value);
+  });
+  document.querySelector("#new-btn").addEventListener("click", () => {
+    addItem(newInput.value);
   });
 });
