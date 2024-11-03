@@ -15,7 +15,7 @@ async function addItem(inputElement) {
   newReminder.querySelector(".item").innerText = msg; // change the reminder's text to be the text the user wants
   remindersContainerEl.appendChild(newReminder); // add the reminder to the DOM
   newReminder.querySelector(".done-btn").addEventListener("click", (e) => { // the click function doesnt bind unless its been added to the DOM first
-    deleteItem(e.target.parentElement);
+    deleteItem(e.target.parentElement); // deletes the active buttons reminder
   });
 
   inputElement.value = ""; // reset the input box
