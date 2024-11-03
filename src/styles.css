@@ -1,19 +1,16 @@
-.reminders-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('./assets/JetBrainsMono-SemiBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
 }
 
-.reminder-container {
-  display: flex;
-  align-items: center;
+* {
+  font-family: 'JetBrainsMono', monospace;
 }
-.item {
-  margin-left: 1em;
-}
-
-.new-container {
-  padding-top: 2em;
+body {
+  background-color: black;
+  color: white;
 }
 
 button, input {
@@ -32,6 +29,23 @@ button:hover {
   color: black;
   background-color: white;
 }
-input {
+
+.reminders-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.reminder-container {
+  display: flex;
+  align-items: center;
+}
+.item {
+  margin-left: 1em;
+}
+
+#new-input {
   border-radius: .5rem;
+}
+#new-input:focus {
+  outline: none;
 }
