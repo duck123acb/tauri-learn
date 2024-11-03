@@ -8,7 +8,7 @@ let reminders = [];
 
 function getAllReminders() {
   let allReminders = "";
-  for (let reminder in reminders) {
+  for (let reminder of reminders) {
     allReminders += reminder + "\n"
   }
   console.log(allReminders);
