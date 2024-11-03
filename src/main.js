@@ -11,7 +11,6 @@ function getAllReminders() {
   for (let reminder of reminders) {
     allReminders += reminder + "\n"
   }
-  console.log(allReminders);
   return allReminders;
 }
 
@@ -32,7 +31,12 @@ async function addItem(msg) {
   await invoke("save_reminders", { reminders: getAllReminders() });
 }
 async function deleteItem(reminderElement) {
+  let reminder = reminderElement.querySelector(".item").innerText;
+  console.log(reminders.indexOf(reminder));
+  reminders.splice(reminders.indexOf(reminder), 1); // removes the element from the list
   reminderElement.remove();
+
+  await invoke("save_reminders", { reminders: getAllReminders() });
 }
 
 window.addEventListener("DOMContentLoaded", () => {
