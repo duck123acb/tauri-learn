@@ -14,7 +14,17 @@ function getAllReminders() {
   return allReminders;
 }
 
-async function addItem(msg) {
+async function loadReminders() {
+  let remindersString = await invoke("load_saved_reminders", { });
+  console.log(remindersString);
+  let newReminders = remindersString.split("\n");
+  
+  for (let reminder of newReminders) {
+    addItem(reminder);
+  }
+  await invoke("save_reminders", { reminders: getAllReminders() });
+}
+function addItem(msg) {
   if (msg.trim() === "") { // if the reminder is empty, dont consider it
     return;
   }
@@ -27,8 +37,6 @@ async function addItem(msg) {
   });
   
   reminders.push(msg);
-  
-  await invoke("save_reminders", { reminders: getAllReminders() });
 }
 async function deleteItem(reminderElement) {
   let reminder = reminderElement.querySelector(".item").innerText;
@@ -47,16 +55,19 @@ window.addEventListener("DOMContentLoaded", () => {
   reminderElInstance.classList.remove("hidden");
 
   // adding items
-  newInputEl.addEventListener("keydown", (e) => {
+  newInputEl.addEventListener("keydown", async (e) => {
     if (e.key !== "Enter") {
       return;
     }
 
     addItem(newInputEl.value);
     newInputEl.value = ""; // reset the input box
-});
-  document.querySelector("#new-btn").addEventListener("click", () => {
+    await invoke("save_reminders", { reminders: getAllReminders() });
+  });
+  document.querySelector("#new-btn").addEventListener("click", async () => {
     addItem(newInputEl.value);
     newInputEl.value = ""; // reset the input box
-});
+    await invoke("save_reminders", { reminders: getAllReminders() });
+  });
+  loadReminders();
 });
