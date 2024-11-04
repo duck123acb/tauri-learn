@@ -1,4 +1,4 @@
-const FILE_PATH: &str = "../assets/reminders.txt"; // file reletave to src/tauri
+const FILE_PATH: &str = "../assets/reminders.txt"; // file relative to src/tauri
 
 use std::fs;
 use std::io::{self, Write};
@@ -16,18 +16,18 @@ fn read_file_contents(path: &str) -> io::Result<String> {
 
 #[tauri::command]
 fn save_reminders(reminders: &str) {
-  match write_to_file(FILE_PATH, reminders) {
+  match write_to_file(FILE_PATH, reminders) { // dont need to do anything if it succeeds
     Ok(_) => { 
       // yay :D
     },
-    Err(e) => eprintln!("Error creating file: {}", e), // aw D:
+    Err(e) => eprintln!("Error writing/creating file: {}", e), // aw D:
   }
 }
 #[tauri::command]
 fn load_saved_reminders() -> String {
   let mut reminders = "".to_string();
 
-  match read_file_contents(FILE_PATH) {
+  match read_file_contents(FILE_PATH) { // if we cant read the file it complains, otherwise we store the contents in the reminders variable 
     Ok(contents) => reminders = contents,
     Err(e) => eprintln!("Error reading file: {}", e),
   }
