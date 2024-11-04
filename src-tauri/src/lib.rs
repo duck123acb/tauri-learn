@@ -1,8 +1,17 @@
-const FILE_PATH: &str = "../assets/reminders.txt"; // file relative to src/tauri
+const FILE_DIR: &str  = "/.todo_duckacb/";
+const FILE: &str = "reminders.txt";
 
-use std::fs;
+use std::fs::{self};
 use std::io::{self, Write};
+use dirs::home_dir;
 
+fn get_home_directory() -> String {
+  home_dir().map(|path| path.to_string_lossy().into_owned()).unwrap()
+}
+fn create_directory(dir_path: &str) -> io::Result<()>{
+  fs::create_dir(dir_path)?;
+  Ok(())
+}
 fn write_to_file(file_path: &str, content: &str) -> io::Result<()> {
   let mut file = fs::File::create(file_path)?;
   file.write_all(content.as_bytes())?;
@@ -16,20 +25,31 @@ fn read_file_contents(path: &str) -> io::Result<String> {
 
 #[tauri::command]
 fn save_reminders(reminders: &str) {
-  match write_to_file(FILE_PATH, reminders) { // dont need to do anything if it succeeds
+  let path = format!("{}{}{}", get_home_directory(), FILE_DIR, FILE);
+  match write_to_file(&path, reminders) { // dont need to do anything if it succeeds
     Ok(_) => { 
       // yay :D
     },
-    Err(e) => eprintln!("Error writing/creating file: {}", e), // aw D:
+    Err(e) => eprintln!("Error writing/creating file: {}", e) // aw D:
   }
 }
 #[tauri::command]
 fn load_saved_reminders() -> String {
   let mut reminders = "".to_string();
 
-  match read_file_contents(FILE_PATH) { // if we cant read the file it complains, otherwise we store the contents in the reminders variable 
+  let directory = format!("{}{}", get_home_directory(), FILE_DIR);
+  let path = format!("{}{}", directory, FILE);
+  match read_file_contents(&path) { // if we cant read the file it complains, otherwise we store the contents in the reminders variable 
     Ok(contents) => reminders = contents,
-    Err(e) => eprintln!("Error reading file: {}", e),
+    Err(e) => {
+      eprintln!("Error reading file: {}\n Trying to create folder", e);
+      match create_directory(&directory) {
+        Ok(_) => {
+          // do nothing
+        },
+        Err(e) => eprintln!("Error creating folder: {}. {}", directory, e)
+      }
+    },
   }
 
   reminders
