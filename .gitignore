@@ -39,3 +39,5 @@ logs
 *.njsproj
 *.sln
 *.sw?
+
+assets/reminders.txt
