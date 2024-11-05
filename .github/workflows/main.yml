@@ -33,9 +33,6 @@ jobs:
       - name: Install Cargo Tauri CLI
         run: cargo install tauri-cli
 
-      - name: Change directory to Tauri project folder
-        run: cd app # Replace 'app' with the correct directory if needed
-
       - name: Build the Tauri app with Cargo
         run: cargo tauri build
         
