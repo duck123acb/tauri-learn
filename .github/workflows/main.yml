@@ -1,0 +1,46 @@
+name: Build Tauri App with Cargo
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    name: Build Tauri App
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.os == 'windows-latest' && 'x86_64-pc-windows-gnu' || matrix.os == 'macos-latest' && (runner.arch == 'ARM64' && 'aarch64-apple-darwin' || 'x86_64-apple-darwin') }}
+          profile: minimal
+          override: true
+
+      - name: Install Tauri dependencies on Windows
+        if: runner.os == 'Windows'
+        run: choco install -y windows-sdk-10.0
+
+      - name: Install Cargo Tauri CLI
+        run: cargo install tauri-cli
+
+      - name: Change Into The Proper Directory
+        run: cd src-tauri
+        
+      - name: Build the Tauri app with Cargo
+        run: cargo tauri build
+        
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Tauri-App-${{ matrix.os }}
+          path: src-tauri/target/release/bundle/
