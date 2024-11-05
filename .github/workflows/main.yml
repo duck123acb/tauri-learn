@@ -34,7 +34,7 @@ jobs:
         run: cargo install tauri-cli
 
       - name: Change Into The Proper Directory
-        run: cd src-tauri
+        run: cd src-tauri; ls -a
         
       - name: Build the Tauri app with Cargo
         run: cargo tauri build
