@@ -33,10 +33,11 @@ jobs:
       - name: Install Cargo Tauri CLI
         run: cargo install tauri-cli
 
+      - name: Change Into The Proper Directory:
+        run: cd src-tauri
+        
       - name: Build the Tauri app with Cargo
-        run:
-          cd src-tauri
-          cargo tauri build
+        run: cargo tauri build
         
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
