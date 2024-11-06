@@ -7,4 +7,4 @@ Go to releases and download the respective file!
 On Mac you may need to right-click the app and hit open after dragging it in from the DMG
 <br>
 <br>
-If you can't, or don't want to download it, you can (watch it)[link here] instead!
+If you can't, or don't want to download it, you can [watch it](https://youtu.be/UYanokvq4-I) instead!
