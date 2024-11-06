@@ -1,10 +1,10 @@
 # simple TODO app
+A very simple TODO app  
+You can add items and delete them, and they store across sessions. The reminders are simply stored in a text file in your Home directory. `~/.todo_duckacb/reminders.txt`
 
-finna do this so i learn the basics i guess then itS TIME FOR **DUCKNOTES** :D
-
-
-uh ima leave this here cause of the funny
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
-- ducknotes (v1) (ugly)
+## Download
+Go to releases and download the respective file!  
+On Mac you may need to right-click the app and hit open after dragging it in from the DMG
+<br>
+<br>
+If you can't, or don't want to download it, you can (watch it)[link here] instead!
